@@ -1,14 +1,38 @@
-# Welcome to your CDK TypeScript project
+# Demo of ALB + Cognito Auth sitting in front of Lambda
 
-This is a blank project for CDK development with TypeScript.
+## Why?
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+The purpose of this repo is to show a developer what Authentication headers a public AWS Application Load Balancer will pass through to a Lambda sitting behind the ALB.
 
-## Useful commands
+## Design 
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `cdk deploy`      deploy this stack to your default AWS account/region
-* `cdk diff`        compare deployed stack with current state
-* `cdk synth`       emits the synthesized CloudFormation template
+The architecture is generated through [CDK-Dia](https://github.com/pistazie/cdk-dia).
+
+![Design](diagram.png)
+
+## What do you need to do?
+
+> You'll need to provide your own domain and Certificate for the Load balancer. Prepare them manually first.
+
+Install aws-cdk and bootsrap your account for cdk to deploy:
+
+0. npm i aws-cdk -g 
+
+1. cdk bootstrap 
+
+2. npm install
+
+3. Uncomment lines 25-27 in the ```./lib/stack.ts``` file and put your Cert and domain in there.
+
+4. cdk synth
+
+5. cdk deploy
+
+## What to expect?
+
+This stack should build a public website server from lambda through an ALB. 
+
+You should get a return from the website domain that looks something like the image below, however it will have more authentication headers.
+
+![Return](return.png)
+
